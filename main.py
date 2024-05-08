@@ -1,13 +1,18 @@
 import os
 import sys
 import usb
-
+from communication2 import Com
 from PyQt6 import QtCore,QtWidgets,QtSerialPort, uic
+
+com_bus = Com(baudRate=19200, portName='/dev/ttyUSB0', serialPort=QtSerialPort.QSerialPort())
+com_bush = Com(baudRate=115200, portName='/dev/ttyUSB1', serialPort=QtSerialPort.QSerialPort())
 # This is a sample Python script.
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 port_list = QtSerialPort.QSerialPortInfo.availablePorts()
+for port in port_list:
+    print(port.portName())
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
