@@ -1,33 +1,6 @@
 from PyQt5 import QtCore, QtWidgets, QtSerialPort
 start_byte = b'\xaa'
-class Widget(QtWidgets.QWidget):
-    def __init__(self, parent=None):
-        super(Widget, self).__init__(parent)
-        self.message_le = QtWidgets.QLineEdit()
-        self.send_btn = QtWidgets.QPushButton(
-            text="Send",
-            clicked=self.send
-        )
-        self.output_te = QtWidgets.QTextEdit(readOnly=True)
-        self.button = QtWidgets.QPushButton(
-            text="Connect",
-            checkable=True,
-            toggled=self.on_toggled
-        )
-        lay = QtWidgets.QVBoxLayout(self)
-        hlay = QtWidgets.QHBoxLayout()
-        hlay.addWidget(self.message_le)
-        hlay.addWidget(self.send_btn)
-        lay.addLayout(hlay)
-        lay.addWidget(self.output_te)
-        lay.addWidget(self.button)
-
-        self.serial = QtSerialPort.QSerialPort(
-            '/dev/ttyUSB0',
-            baudRate=QtSerialPort.QSerialPort.Baud115200,
-            readyRead=self.receive
-        )
-
+class Com:
     @QtCore.pyqtSlot()
     def receive(self):
         #while self.serial.canReadLine():
@@ -59,9 +32,3 @@ class Widget(QtWidgets.QWidget):
         else:
             self.serial.close()
 
-if __name__ == '__main__':
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    w = Widget()
-    w.show()
-    sys.exit(app.exec_())

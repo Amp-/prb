@@ -39,6 +39,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def turn_on_0(self):
         print(usb.turn_on_1())
+        print_hi
     def turn_off_0(self):
         print(usb.turn_off_1())
     def turn_on_1(self):

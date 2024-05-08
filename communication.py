@@ -13,7 +13,7 @@ class Com():
             self.serial.open()
             print(self.serial.isOpen())
         except:
-            print(f"Cant opnet {self.serial.portName()}")
+            print(f"Can't opne {self.serial.portName()}")
 
     def read(self):
         while self.serial.canReadLine():
@@ -22,7 +22,8 @@ class Com():
             return text
 
     def send(self, data):
-        self.serial.write(data)
+        #self.serial.write(data)
+        print(self.serial.isOpen())
 
     def togle(self):
         if not self.serial.isOpen():
