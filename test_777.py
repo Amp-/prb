@@ -1,4 +1,6 @@
-from PyQt5 import QtCore, QtWidgets, QtSerialPort
+from PyQt6 import QtCore,QtWidgets,QtSerialPort, uic
+from PyQt6.QtCore import QIODevice
+
 start_byte = b'\xaa'
 class Com:
     @QtCore.pyqtSlot()
@@ -27,7 +29,7 @@ class Com:
             print(self.serial.isOpen())
             if not self.serial.isOpen():
                 print(self.serial.isOpen())
-                if not self.serial.open(QtCore.QIODevice.ReadWrite):
+                if not self.serial.open(QIODevice.OpenModeFlag.ReadWrite):
                     self.button.setChecked(False)
         else:
             self.serial.close()

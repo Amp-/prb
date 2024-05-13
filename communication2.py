@@ -1,4 +1,6 @@
-from PyQt5 import QtCore, QtSerialPort
+from PyQt6 import QtCore, QtSerialPort
+from PyQt6.QtCore import QIODevice
+
 
 class Com():
 
@@ -8,22 +10,23 @@ class Com():
         self.serial.setBaudRate(baudRate)
         self.portList = []
 
+
     @QtCore.pyqtSlot()
-    def receive(self):
-        text = self.serial.read(2)
+    def receive(self,size):
+        text = self.serial.read(size)
         return text
 
     @QtCore.pyqtSlot()
     def send(self,text):
-        t = bytes.fromhex(text)
-        self.serial.write(t)
+        #t = bytes.fromhex(text)
+        self.serial.write(text)
 
     @QtCore.pyqtSlot(bool)
     def on_toggled(self, checked):
         if checked:
             print(self.serial.isOpen())
             if not self.serial.isOpen():
-                if not self.serial.open(QtCore.QIODevice.ReadWrite):
+                if not self.serial.open(QIODevice.OpenModeFlag.ReadWrite):
                     #self.button.setChecked(False)
                     print('test')
         else:

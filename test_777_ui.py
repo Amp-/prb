@@ -1,7 +1,7 @@
-from PyQt5 import QtCore, QtWidgets, QtSerialPort
+from PyQt6 import QtCore, QtWidgets, QtSerialPort
 start_byte = b'\xaa'
 from communication2 import Com
-com = Com(baudRate=19200, portName='/dev/ttyUSB0', serialPort=QtSerialPort.QSerialPort())
+com = Com(baudRate=115200, portName='/dev/ttyUSB0', serialPort=QtSerialPort.QSerialPort())
 class Widget(QtWidgets.QWidget):
     def __init__(self, parent=None):
         super(Widget, self).__init__(parent)
@@ -28,8 +28,8 @@ class Widget(QtWidgets.QWidget):
         self.serial.readyRead.connect(lambda: self.receive())
 
     @QtCore.pyqtSlot()
-    def receive(self):
-        print(com.receive())
+    def receive(self, size=4):
+        print(com.receive(size))
 
 
     @QtCore.pyqtSlot()
@@ -47,4 +47,4 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     w = Widget()
     w.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

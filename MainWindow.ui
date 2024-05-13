@@ -18,7 +18,7 @@
     <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>5</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -341,14 +341,14 @@
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="usb1_radio_btn_on_8">
+            <widget class="QRadioButton" name="radio_sbz_on">
              <property name="text">
               <string>Включить</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="usb1_radio_btn_off_8">
+            <widget class="QRadioButton" name="radio_sbz_off">
              <property name="text">
               <string>Выключить</string>
              </property>
@@ -416,14 +416,14 @@
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="usb1_radio_btn_on_2">
+            <widget class="QRadioButton" name="radio_she_on">
              <property name="text">
               <string>Включить</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QRadioButton" name="usb1_radio_btn_off_2">
+            <widget class="QRadioButton" name="radio_she_off">
              <property name="text">
               <string>Выключить</string>
              </property>
@@ -455,7 +455,7 @@
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <layout class="QHBoxLayout" name="horizontalLayout_9">
           <item>
            <widget class="QLabel" name="label_46">
@@ -465,18 +465,21 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox"/>
+           <widget class="QComboBox" name="comboBox_sbz"/>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="pushButton_sbz">
             <property name="text">
-             <string>Ok</string>
+             <string>Connect</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="">
+        <widget class="QWidget" name="layoutWidget">
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <widget class="QLabel" name="label_47">
@@ -486,12 +489,15 @@
            </widget>
           </item>
           <item>
-           <widget class="QComboBox" name="comboBox_2"/>
+           <widget class="QComboBox" name="comboBox_she"/>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="pushButton_she">
             <property name="text">
-             <string>Ok</string>
+             <string>Connect</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -509,7 +515,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
