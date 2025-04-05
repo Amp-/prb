@@ -1,116 +1,40 @@
-from uhubctl import Hub, Port
 import logging
-import logging.handlers
+from logging.handlers import SysLogHandler
+from uhubctl import Hub
 
-my_logger = logging.getLogger('MyLogger')
-my_logger.setLevel(logging.DEBUG)
+# Настройка логгирования
+logger = logging.getLogger('MyLogger')
+logger.setLevel(logging.DEBUG)
+handler = SysLogHandler(address='/dev/log')
+logger.addHandler(handler)
 
-handler = logging.handlers.SysLogHandler(address = '/dev/log')
-
-my_logger.addHandler(handler)
-
-
-import uhubctl
-#hubs = uhubctl.discover_hubs()
-
-# for hub in hubs:
-#     print(f"Found hub: {hub}")
-#
-#     for port in hub.ports:
-#         print(f"   Found port: {port}")
-
-
+# Инициализация хаба и портов
 hub = Hub("3-4")
-port_list = []
-for port in range(1,8):
-    port_list.append(hub.add_port(port))
+port_list = [hub.add_port(port) for port in range(1, 8)]
 
-# while True:
-#     answ = int(input("On -1, Off-2,Status-5: "))
-#     print(answ)
-#     if answ == 1:
-#         for p in port_list:
-#             p.status = True
-#     elif answ == 2:
-#         for p in port_list:
-#             p.status = False
-#     elif answ == 3:
-#         for p in port_list:
-#             p.status = False
-#     elif answ == 4:
-#         for p in port_list:
-#             p.status = False
-#     elif answ == 5:
-#         for p in port_list:
-#             print(p.status)
-#     else:
-#         break
+def log_action(port_num, action):
+    message = f"Port {port_num}: {'ON' if action else 'OFF'}"
+    log_func = logger.debug if action else logger.critical
+    log_func(message)
 
-def turn_on_1():
-    port_list[0].status = True
-    my_logger.debug('this is debug')
-    return port_list[0].status
-def turn_off_1():
-    port_list[0].status = False
-    my_logger.critical('this is nodebug')
-    return port_list[0].status
-def turn_on_2():
-    port_list[1].status = True
-    my_logger.debug('this is debug')
-    return port_list[1].status
-def turn_off_2():
-    port_list[1].status = False
-    my_logger.critical('this is nodebug')
-    return port_list[1].status
-def turn_on_3():
-    port_list[2].status = True
-    my_logger.debug('this is debug')
-    return port_list[2].status
-def turn_off_3():
-    port_list[2].status = False
-    my_logger.critical('this is nodebug')
-    return port_list[2].status
-def turn_on_4():
-    port_list[3].status = True
-    my_logger.debug('this is debug')
-    return port_list[3].status
-def turn_off_4():
-    port_list[3].status = False
-    my_logger.critical('this is nodebug')
-    return port_list[3].status
-def turn_on_5():
-    port_list[4].status = True
-    my_logger.debug('this is debug')
-    return port_list[4].status
-def turn_off_5():
-    port_list[4].status = False
-    my_logger.critical('this is nodebug')
-    return port_list[4].status
-def turn_on_6():
-    port_list[5].status = True
-    my_logger.debug('this is debug')
-    return port_list[5].status
-def turn_off_6():
-    port_list[5].status = False
-    my_logger.critical('this is nodebug')
-    return port_list[5].status
-def turn_on_7():
-    port_list[6].status = True
-    my_logger.debug('this is debug')
-    return port_list[6].status
-def turn_off_6():
-    port_list[6].status = False
-    my_logger.critical('this is nodebug')
-    return port_list[6].status
-def turn_on_all():
-    for p in port_list:
-     p.status = True
-    my_logger.debug('this is debug')
-    return port_list[6].status
-def turn_off_all():
-    for p in port_list:
-        p.status = False
-    my_logger.critical('this is nodebug')
-    return port_list[6].status
+def set_port_status(port_num, status: bool):
+    """Включает или выключает указанный порт (1-7)."""
+    if 1 <= port_num <= len(port_list):
+        port_list[port_num - 1].status = status
+        log_action(port_num, status)
+        return port_list[port_num - 1].status
+    else:
+        raise IndexError("Недопустимый номер порта")
 
-#if __name__ == "__main__":
+def set_all_ports(status: bool):
+    """Включает или выключает все порты."""
+    for idx, port in enumerate(port_list, start=1):
+        port.status = status
+        log_action(idx, status)
+    return [port.status for port in port_list]
+
+# Примеры использования:
+# set_port_status(1, True)  # Включить порт 1
+# set_port_status(2, False) # Выключить порт 2
+# set_all_ports(True)       # Включить все порты
+# set_all_ports(False)      # Выключить все порты
